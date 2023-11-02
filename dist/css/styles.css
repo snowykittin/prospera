@@ -120,6 +120,7 @@ footer .quick-nav a {
   border-right: 2px solid #2F1C44;
   border-radius: 10px;
   background-color: #fff;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=styles.css.map */
