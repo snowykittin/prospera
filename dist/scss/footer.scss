@@ -1,0 +1,38 @@
+footer{
+    min-height: 10vh;
+    width: 100%;
+    padding: 1vh 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #E2D9E7;
+
+    .copy{
+        width: 30%;
+
+        img{
+            height: 50px;
+        }
+    }
+
+    .quick-nav{
+        display: flex;
+        flex-direction: column;
+
+        text-align: right;
+        font-family: Arial, Helvetica, sans-serif;
+
+        h5{
+            font-size: 24px;
+            color: #574B60;
+        }
+
+        a{
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #574B60;
+        }
+        
+    }
+}

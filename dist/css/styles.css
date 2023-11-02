@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin-bottom: 16px;
+}
+
+#app {
+  min-height: 80vh;
+}
+
+.main {
+  height: 75px;
+  width: 100%;
+  padding: 1vh 10vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.main .title {
+  height: 100%;
+}
+.main .title img {
+  height: 100%;
+}
+.main .login button {
+  background-color: #574B60;
+  border-radius: 15px;
+  border: 1px solid #3F334D;
+  width: 100px;
+  height: 50px;
+  color: #fff;
+  font-size: 18px;
+}
+
+footer {
+  min-height: 10vh;
+  width: 100%;
+  padding: 1vh 10vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #E2D9E7;
+}
+footer .copy {
+  width: 30%;
+}
+footer .copy img {
+  height: 50px;
+}
+footer .quick-nav {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  font-family: Arial, Helvetica, sans-serif;
+}
+footer .quick-nav h5 {
+  font-size: 24px;
+  color: #574B60;
+}
+footer .quick-nav a {
+  text-decoration: none;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #574B60;
+}
+
+/*# sourceMappingURL=styles.css.map */

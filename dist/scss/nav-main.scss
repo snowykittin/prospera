@@ -1,0 +1,27 @@
+.main{
+    height: 75px;
+    width: 100%;
+    padding: 1vh 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ 
+    .title{
+        height: 100%;
+        img{
+            height: 100%;
+        }
+    }
+
+    .login{
+        button{
+            background-color: #574B60;
+            border-radius: 15px;
+            border: 1px solid #3F334D;
+            width: 100px;
+            height: 50px;
+            color: #fff;
+            font-size: 18px;
+        }
+    }
+}
