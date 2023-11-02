@@ -1,0 +1,49 @@
+.main-home{
+    width: 100%;
+
+    .top-banner{
+        width: 100%;
+        height: 50vh;
+        background-color: blue;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url("../images/banners/AdobeStock_347651809.jpeg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        .text{
+            height: 100%;
+            padding: 1vh 10vw;
+            width: 50%;
+            background-color: #4F2F74;
+            border-right: 5px solid #2F1C44;
+            border-top-right-radius: 25%;
+            border-bottom-right-radius: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;           
+
+            .container{
+                width: 100%;
+                font-family: Arial, Helvetica, sans-serif;
+                h1{
+                    font-size: 48px;
+                    color: #fff;
+                }p{
+                    font-size: 20px;
+                    color: #fff;
+                    margin-bottom: 50px;
+                }
+                button{
+                    width: 120px;
+                    height: 40px;
+                    font-size: 18px;
+                    border: none;
+                    border-bottom: 3px solid #2F1C44;
+                    border-right: 2px solid #2F1C44;
+                    border-radius: 10px;
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+}
