@@ -15,5 +15,6 @@
 [] Register page
 [] Login/Register functions
 [] Member navigation structure/styling
+[] MVC functioning
 
 [Color Palette](https://coolors.co/0e34a0-041f6b-b4c6f8-6a041d-fb5607)
