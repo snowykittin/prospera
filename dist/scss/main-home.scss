@@ -47,4 +47,28 @@
             }
         }
     }
+
+    .perk-row{
+        width: 100%;
+        padding: 5vh 20vw;
+        min-height: 250px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .image-half{
+            width: 45%;
+
+            img{
+                width: 30vw;
+            }
+        }
+        .text-half{
+            width: 35%;
+        }
+    }
+    .perk-row:nth-child(odd){
+        background-color: #f4f4f4;
+    }
 }

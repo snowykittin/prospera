@@ -45,7 +45,7 @@ h1, h2, h3, h4, h5, h6, p {
 footer {
   min-height: 10vh;
   width: 100%;
-  padding: 1vh 10vw;
+  padding: 5vh 10vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -121,6 +121,27 @@ footer .quick-nav a {
   border-radius: 10px;
   background-color: #fff;
   cursor: pointer;
+}
+.main-home .perk-row {
+  width: 100%;
+  padding: 5vh 20vw;
+  min-height: 250px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.main-home .perk-row .image-half {
+  width: 45%;
+}
+.main-home .perk-row .image-half img {
+  width: 30vw;
+}
+.main-home .perk-row .text-half {
+  width: 35%;
+}
+.main-home .perk-row:nth-child(odd) {
+  background-color: #f4f4f4;
 }
 
 /*# sourceMappingURL=styles.css.map */
