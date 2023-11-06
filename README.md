@@ -7,8 +7,8 @@
 #### TO-DO
 
 [X] Homepage navigation structure/styling
-[] Homepage structure/styling
-[] Homepage content
+[X] Homepage structure/styling
+[X] Homepage content
 [] About Page structure/styling
 [] About Page content
 [] Login page
@@ -16,4 +16,4 @@
 [] Login/Register functions
 [] Member navigation structure/styling
 
-[Color Palette](https://coolors.co/0e34a0-151515-e2d9e7-7d8491-2f1c44)
+[Color Palette](https://coolors.co/0e34a0-041f6b-b4c6f8-6a041d-fb5607)
