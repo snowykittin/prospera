@@ -14,8 +14,8 @@
             height: 100%;
             padding: 1vh 10vw;
             width: 50%;
-            background-color: #4F2F74;
-            border-right: 5px solid #2F1C44;
+            background-color: #041f6b;
+            border-right: 5px solid #0E34A0;
             border-top-right-radius: 25%;
             border-bottom-right-radius: 25%;
             display: flex;
@@ -38,8 +38,6 @@
                     height: 40px;
                     font-size: 18px;
                     border: none;
-                    border-bottom: 3px solid #2F1C44;
-                    border-right: 2px solid #2F1C44;
                     border-radius: 10px;
                     background-color: #fff;
                     cursor: pointer;
@@ -66,6 +64,9 @@
         }
         .text-half{
             width: 35%;
+            h2{
+                color: #0E34A0;
+            }
         }
     }
     .perk-row:nth-child(odd){

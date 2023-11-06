@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6, p {
   height: 100%;
 }
 .main .login button {
-  background-color: #574B60;
+  background-color: #0E34A0;
   border-radius: 15px;
   border: none;
   width: 100px;
@@ -49,7 +49,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #E2D9E7;
+  background-color: #B4C6F8;
 }
 footer .copy {
   width: 30%;
@@ -65,7 +65,7 @@ footer .quick-nav {
 }
 footer .quick-nav h5 {
   font-size: 24px;
-  color: #574B60;
+  color: #041f6b;
 }
 footer .quick-nav a {
   text-decoration: none;
@@ -90,8 +90,8 @@ footer .quick-nav a {
   height: 100%;
   padding: 1vh 10vw;
   width: 50%;
-  background-color: #4F2F74;
-  border-right: 5px solid #2F1C44;
+  background-color: #041f6b;
+  border-right: 5px solid #0E34A0;
   border-top-right-radius: 25%;
   border-bottom-right-radius: 25%;
   display: flex;
@@ -116,8 +116,6 @@ footer .quick-nav a {
   height: 40px;
   font-size: 18px;
   border: none;
-  border-bottom: 3px solid #2F1C44;
-  border-right: 2px solid #2F1C44;
   border-radius: 10px;
   background-color: #fff;
   cursor: pointer;
@@ -139,6 +137,9 @@ footer .quick-nav a {
 }
 .main-home .perk-row .text-half {
   width: 35%;
+}
+.main-home .perk-row .text-half h2 {
+  color: #0E34A0;
 }
 .main-home .perk-row:nth-child(odd) {
   background-color: #f4f4f4;
