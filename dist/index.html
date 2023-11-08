@@ -8,20 +8,33 @@
     <title>Prospera</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="images/logo/checkmark-logo-transparent.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <nav class="main">
+    <!-- Main Navigation -->
+    <nav class="main" id="main-nav">
         <div class="title"><a href="#home"><img src="images/logo/logo-transparent-png.png" alt="prospera"
                     class="logo"></a></div>
         <div class="login">
             <a href="#login" id="login"><button>Log In</button></a>
         </div>
     </nav>
+    <!-- Simple member portal navigation -->
+    <nav class="member-nav" id="alt-nav">
+        <a href="#home"><img src="images/logo/logo-transparent-png.png" alt="prospera" class="logo"></a>
+
+        <div class="dropdown">
+            <div class="dropdown-icon">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
     <div id="app">
 
     </div>
-    <footer>
+    <footer id="main-footer">
         <div class="copy">
             <img src="images/logo/logo-transparent-svg.svg" alt="Prospera">
             <p>&copy; 2023 Prospera. All rights reserved.</p>
@@ -35,6 +48,10 @@
             <a href="#">Log In</a>
             <a href="#">Register</a>
         </div>
+    </footer>
+    <footer id="alt-footer">
+        <img src="images/logo/checkmark-logo-transparent.png" alt="Prospera">
+        <p>&copy; 2023 Prospera. All rights reserved.</p>
     </footer>
 
     <script src="lib/jquery-3.7.1.min.js"></script>

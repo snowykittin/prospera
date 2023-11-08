@@ -9,6 +9,8 @@ import {
 } from "firebase/auth";
 import { getFirestore, getDoc, collection, getDocs } from "firebase/firestore";
 
+import * as CONTROLLER from "./index";
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -65,22 +67,23 @@ export function changeRoute() {
   switch (pageID) {
     case "login":
       changePage("login");
+      CONTROLLER.changeToAlt();
+      CONTROLLER.logInUserListener();
       break;
     case "home":
       changePage("home");
-      break;
-    case "getData":
-      changePage("getData");
-      getAllData();
+      CONTROLLER.changeToMain();
       break;
     case "signout":
       signout();
       break;
-    case "signin":
-      anonSignIn();
+    case "register":
+      changePage("register");
+      CONTROLLER.changeToAlt();
       break;
     default:
       changePage("home");
+      CONTROLLER.changeToMain();
       break;
   }
 }

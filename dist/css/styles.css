@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 #app {
-  min-height: 80vh;
+  min-height: 60vh;
 }
 
 .main {
@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6, p {
   height: 100%;
 }
 .main .login button {
-  background-color: #0E34A0;
+  background-color: #3b4ACC;
   border-radius: 15px;
   border: none;
   width: 100px;
@@ -42,36 +42,80 @@ h1, h2, h3, h4, h5, h6, p {
   cursor: pointer;
 }
 
-footer {
+.member-nav {
+  height: 10vh;
+  width: 100%;
+  padding: 0 10vw;
+  background-color: #dde7fe;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.member-nav img {
+  height: 75px;
+}
+.member-nav .dropdown {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  right: 10vw;
+  top: 2vh;
+}
+.member-nav .dropdown .dropdown-icon {
+  float: right;
+  height: 36px;
+  width: 36px;
+}
+.member-nav .dropdown .dropdown-icon i {
+  font-size: 36px;
+  cursor: pointer;
+}
+
+#main-footer {
   min-height: 10vh;
   width: 100%;
   padding: 5vh 10vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #B4C6F8;
+  background-color: #dde7fe;
 }
-footer .copy {
+#main-footer .copy {
   width: 30%;
 }
-footer .copy img {
+#main-footer .copy img {
   height: 50px;
 }
-footer .quick-nav {
+#main-footer .quick-nav {
   display: flex;
   flex-direction: column;
   text-align: right;
   font-family: Arial, Helvetica, sans-serif;
 }
-footer .quick-nav h5 {
+#main-footer .quick-nav h5 {
   font-size: 24px;
-  color: #041f6b;
+  color: #0B0755;
 }
-footer .quick-nav a {
+#main-footer .quick-nav a {
   text-decoration: none;
   margin-bottom: 10px;
   font-size: 18px;
-  color: #151515;
+  color: #060633;
+}
+
+#alt-footer {
+  height: 15vh;
+  width: 100%;
+  padding: 5vh 10vw;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: #dde7fe;
+}
+#alt-footer img {
+  height: 50px;
 }
 
 .main-home {
@@ -81,7 +125,7 @@ footer .quick-nav a {
   width: 100%;
   min-height: 50vh;
   padding: 5vh 15vw;
-  background-color: #041f6b;
+  background-color: #0B0755;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -136,10 +180,65 @@ footer .quick-nav a {
   width: 35%;
 }
 .main-home .perk-row .text-half h2 {
-  color: #0E34A0;
+  color: #3b4ACC;
 }
 .main-home .perk-row:nth-child(odd) {
   background-color: #f4f4f4;
+}
+
+.log-in {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 75vh;
+  position: relative;
+  padding-top: 5vh;
+  background-color: #dde7fe;
+}
+.log-in .form {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.log-in .form input {
+  width: 350px;
+  height: 30px;
+  padding: 5px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #6a86ce;
+}
+.log-in .form button {
+  width: 350px;
+  padding: 5px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #3b4ACC;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+.log-in .form .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 350px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.log-in .form .row span, .log-in .form .row a {
+  color: #3b4ACC;
+  text-decoration: none;
+  cursor: pointer;
+}
+.log-in img {
+  position: absolute;
+  bottom: -10vh;
+  left: 2vw;
+  width: 30vw;
 }
 
 /*# sourceMappingURL=styles.css.map */

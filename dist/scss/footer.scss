@@ -1,11 +1,11 @@
-footer{
+#main-footer{
     min-height: 10vh;
     width: 100%;
     padding: 5vh 10vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #B4C6F8;
+    background-color: $pale-blue;
 
     .copy{
         width: 30%;
@@ -24,15 +24,30 @@ footer{
 
         h5{
             font-size: 24px;
-            color: #041f6b;
+            color: $dark-blue;
         }
 
         a{
             text-decoration: none;
             margin-bottom: 10px;
             font-size: 18px;
-            color: #151515;
+            color: $navy;
         }
         
     }
+}
+
+#alt-footer{
+    height: 15vh;
+    width: 100%;
+    padding: 5vh 10vw;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: $pale-blue;
+
+    img{
+        height: 50px;
+    }
+
 }

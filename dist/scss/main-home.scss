@@ -5,7 +5,7 @@
         width: 100%;
         min-height: 50vh;
         padding: 5vh 15vw;
-        background-color: #041f6b;
+        background-color: $dark-blue;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -64,11 +64,11 @@
         .text-half{
             width: 35%;
             h2{
-                color: #0E34A0;
+                color: $blue;
             }
         }
     }
     .perk-row:nth-child(odd){
-        background-color: #f4f4f4;
+        background-color: $light-grey;
     }
 }

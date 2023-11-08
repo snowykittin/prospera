@@ -1,0 +1,64 @@
+.main{
+    height: 75px;
+    width: 100%;
+    padding: 1vh 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ 
+    .title{
+        height: 100%;
+        img{
+            height: 100%;
+        }
+    }
+
+    .login{
+        button{
+            background-color: $blue;
+            border-radius: 15px;
+            border: none;
+            width: 100px;
+            height: 50px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    }
+}
+
+.member-nav{
+    height: 10vh;
+    width: 100%;
+    padding: 0 10vw;
+    background-color: $pale-blue;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+
+    img{
+        height: 75px;
+    }
+
+    .dropdown{
+        width: 250px;
+        height: 250px;
+        position: absolute;
+        right: 10vw;
+        top: 2vh;
+
+        .dropdown-icon{
+            float: right;
+            height: 36px;
+            width: 36px;
+
+            i{
+                font-size: 36px;
+                cursor: pointer;
+            }
+        }
+    }
+
+}
