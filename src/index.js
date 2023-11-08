@@ -14,19 +14,13 @@ export function changeToMain() {
   mainNav.style.display = "flex";
   altNav.style.display = "none";
   mainFooter.style.display = "flex";
+  altFooter.style.display = "none";
 }
 export function changeToAlt() {
   mainNav.style.display = "none";
   altNav.style.display = "flex";
   altFooter.style.display = "flex";
   mainFooter.style.display = "none";
-}
-
-export function logInUserListener() {
-  $("#login-btn").on("click", (e) => {
-    e.preventDefault();
-    MODEL.anonSignIn();
-  });
 }
 
 $(document).ready(function () {

@@ -186,7 +186,7 @@ h1, h2, h3, h4, h5, h6, p {
   background-color: #f4f4f4;
 }
 
-.log-in {
+.log-in-register {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -195,22 +195,41 @@ h1, h2, h3, h4, h5, h6, p {
   padding-top: 5vh;
   background-color: #dde7fe;
 }
-.log-in .form {
+.log-in-register .form {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
 }
-.log-in .form input {
-  width: 350px;
+.log-in-register .form h1 {
+  color: #060633;
+}
+.log-in-register .form .error-box {
+  display: none;
+  width: 450px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #fa7267;
+  padding: 5px;
+  text-align: center;
+}
+.log-in-register .form .error-box p {
+  margin-bottom: 0;
+}
+.log-in-register .form input {
+  width: 450px;
   height: 30px;
   padding: 5px;
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #6a86ce;
 }
-.log-in .form button {
-  width: 350px;
+.log-in-register .form .half-width {
+  width: 210px;
+}
+.log-in-register .form button {
+  width: 450px;
   padding: 5px;
   margin-bottom: 15px;
   border-radius: 5px;
@@ -220,21 +239,21 @@ h1, h2, h3, h4, h5, h6, p {
   font-size: 18px;
   cursor: pointer;
 }
-.log-in .form .row {
+.log-in-register .form .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 350px;
+  width: 450px;
   text-transform: uppercase;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
 }
-.log-in .form .row span, .log-in .form .row a {
+.log-in-register .form .row span, .log-in-register .form .row a {
   color: #3b4ACC;
   text-decoration: none;
   cursor: pointer;
 }
-.log-in img {
+.log-in-register img {
   position: absolute;
   bottom: -10vh;
   left: 2vw;

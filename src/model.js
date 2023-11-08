@@ -32,7 +32,7 @@ async function getAllData() {
   });
 }
 
-export function anonSignIn() {
+function anonSignIn() {
   signInAnonymously(auth)
     .then(() => {
       console.log("Signed in");
@@ -42,7 +42,7 @@ export function anonSignIn() {
     });
 }
 
-export function signout() {
+function signout() {
   signOut(auth)
     .then(() => {
       console.log("Sign out");
@@ -68,18 +68,17 @@ export function changeRoute() {
     case "login":
       changePage("login");
       CONTROLLER.changeToAlt();
-      CONTROLLER.logInUserListener();
       break;
     case "home":
       changePage("home");
       CONTROLLER.changeToMain();
       break;
-    case "signout":
-      signout();
-      break;
     case "register":
       changePage("register");
       CONTROLLER.changeToAlt();
+      break;
+    case "signInUser":
+      console.log("Signed in");
       break;
     default:
       changePage("home");

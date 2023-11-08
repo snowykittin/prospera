@@ -1,4 +1,4 @@
-.log-in{
+.log-in-register{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -13,8 +13,26 @@
         justify-content: space-evenly;
         flex-direction: column;
 
+        h1{
+            color: $navy;
+        }
+
+        .error-box{
+            display: none;
+            width: 450px;
+            margin-bottom: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            border: 1px solid $orange;
+            padding: 5px;
+            text-align: center;
+            p{
+                margin-bottom: 0;
+            }
+        }
+
         input{
-            width: 350px;
+            width: 450px;
             height: 30px;
             padding: 5px;
             margin-bottom: 15px;
@@ -22,8 +40,12 @@
             border: 1px solid $slate-blue;
         }
 
+        .half-width {
+            width: 210px;
+        }
+
         button{
-            width: 350px;
+            width: 450px;
             padding: 5px;
             margin-bottom: 15px;
             border-radius: 5px;
@@ -38,7 +60,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 350px;
+            width: 450px;
             text-transform: uppercase;
             font-size: 14px;
             font-family: Arial, Helvetica, sans-serif;
