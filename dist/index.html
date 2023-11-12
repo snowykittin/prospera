@@ -24,13 +24,15 @@
 
         <div class="dropdown">
             <div class="dropdown-icon">
-                <i class="fa fa-bars"></i>
+                <i class="fa fa-bars" onclick="dropdownMenu()"></i>
             </div>
-            <div class="dropdown-menu">
-                <a href="#login" id="login"><button>Log In</button></a>
-                <a href="#register" id="register"><button>Enroll</button></a>
+            <div class="dropdown-menu hidden">
+                <div id="visitor-options">
+                    <a href="#login" id="login"><button>Log In</button></a>
+                    <a href="#register" id="register"><button>Enroll</button></a>
+                </div>
                 <div id="member-options">
-                    <span id="name">Welcome, [member]!</span>
+                    <p id="name">Welcome, [member]!</p>
                     <a href="#logout" id="logout"><button>Log Out</button></a>
                 </div>
             </div>

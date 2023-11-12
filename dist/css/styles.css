@@ -58,10 +58,11 @@ h1, h2, h3, h4, h5, h6, p {
 }
 .member-nav .dropdown {
   width: 250px;
-  height: 250px;
+  min-height: 250px;
   position: absolute;
   right: 10vw;
   top: 2vh;
+  z-index: 50;
 }
 .member-nav .dropdown .dropdown-icon {
   float: right;
@@ -71,6 +72,60 @@ h1, h2, h3, h4, h5, h6, p {
 .member-nav .dropdown .dropdown-icon i {
   font-size: 36px;
   cursor: pointer;
+}
+.member-nav .dropdown .dropdown-menu {
+  background-color: rgba(11, 7, 85, 0.3);
+  padding: 10px;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 2px solid #0B0755;
+  border-top: none;
+  border-left: none;
+}
+.member-nav .dropdown .dropdown-menu #visitor-options {
+  width: 100%;
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.member-nav .dropdown .dropdown-menu #visitor-options button {
+  background-color: #3b4ACC;
+  border-radius: 15px;
+  border: none;
+  width: 100px;
+  height: 50px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+.member-nav .dropdown .dropdown-menu #member-options {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.member-nav .dropdown .dropdown-menu #member-options #name {
+  margin-bottom: 5px;
+}
+.member-nav .dropdown .dropdown-menu #member-options button {
+  background-color: #3b4ACC;
+  border-radius: 15px;
+  border: none;
+  width: 100px;
+  height: 50px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.flex-visible {
+  display: flex;
 }
 
 #main-footer {

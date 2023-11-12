@@ -2,10 +2,12 @@
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "./firebaseConfig";
 import {
-  signInAnonymously,
   signOut,
   getAuth,
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, getDoc, collection, getDocs } from "firebase/firestore";
 
@@ -19,8 +21,14 @@ const db = getFirestore(app);
 onAuthStateChanged(auth, (user) => {
   if (user != null) {
     console.log("Logged in.");
+    $("#name").html(`Welcome, ${user.displayName}!`);
+    $("#visitor-options").css("display", "none");
+    $("#member-options").css("display", "flex");
   } else {
     console.log("Logged out.");
+    $("#name").html(`Welcome, [member]!`);
+    $("#member-options").css("display", "none");
+    $("#visitor-options").css("display", "flex");
   }
 });
 
@@ -32,23 +40,74 @@ async function getAllData() {
   });
 }
 
-function anonSignIn() {
-  signInAnonymously(auth)
+function createUser() {
+  //validate inputs
+  if (
+    $("#fName").val() === "" ||
+    $("#lName").val() === "" ||
+    $("#email").val() === "" ||
+    $("#password").val() === "" ||
+    $("#password2").val() === ""
+  ) {
+    $("#error-box").html(`<p>Please fill out all fields.</p>`);
+  } else if ($("#password").val() != $("#password2").val()) {
+    $("#error-box").html(`<p>Passwords do not match.</p>`);
+  } else {
+    let fName = $("#fName").val();
+    let lName = $("#lName").val();
+    let fullName = fName.concat(" ", lName);
+    let email = $("#email").val();
+    let pw = $("#password").val();
+
+    createUserWithEmailAndPassword(auth, email, pw)
+      .then((userCredentials) => {
+        updateUserCredentials(fullName);
+        $("#name").html(`Welcome, ${fullName}!`);
+        console.log("Created new user ", userCredentials.user);
+        $("#fName").val("");
+        $("#lName").val("");
+        $("#email").val("");
+        $("#password").val("");
+        $("#password2").val("");
+      })
+      .catch((error) => {
+        console.log("An error has occurred. ", error.message);
+      });
+  }
+}
+
+function signout() {
+  signOut(auth)
     .then(() => {
-      console.log("Signed in");
+      console.log("Signing out user");
     })
     .catch((error) => {
       console.log("error", error.message);
     });
 }
 
-function signout() {
-  signOut(auth)
-    .then(() => {
-      console.log("Sign out");
+function signInByEmail() {
+  let email = $("#email").val();
+  let pw = $("#password").val();
+
+  signInWithEmailAndPassword(auth, email, pw)
+    .then((userCredentials) => {
+      console.log("Signed in as ", userCredentials.user);
     })
     .catch((error) => {
-      console.log("error", error.message);
+      console.log("An error has occurred. ", error.message);
+    });
+}
+
+function updateUserCredentials(name) {
+  updateProfile(auth.currentUser, {
+    displayName: name,
+  })
+    .then(() => {
+      console.log("Changed.");
+    })
+    .catch((error) => {
+      console.log("An error has occurred. ", error.message);
     });
 }
 
@@ -78,9 +137,16 @@ export function changeRoute() {
       CONTROLLER.changeToAlt();
       break;
     case "signInUser":
-      console.log("Signed in");
+      signInByEmail();
+      break;
+    case "createNewUser":
+      createUser();
+      break;
+    case "logout":
+      signout();
       break;
     default:
+      signout();
       changePage("home");
       CONTROLLER.changeToMain();
       break;

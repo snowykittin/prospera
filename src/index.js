@@ -23,6 +23,11 @@ export function changeToAlt() {
   mainFooter.style.display = "none";
 }
 
+window.dropdownMenu = function () {
+  $(".dropdown-menu").toggleClass("flex-visible");
+  $(".dropdown-menu").toggleClass("hidden");
+};
+
 $(document).ready(function () {
   initURLListener();
 });

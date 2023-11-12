@@ -11,7 +11,7 @@
 [X] Homepage content
 [X] Login page
 [X] Register page
-[] Login/Register functions
+[X] Login/Register functions
 [] Member navigation structure/styling
 [X] MVC functioning
 
