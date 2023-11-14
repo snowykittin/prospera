@@ -32,14 +32,12 @@ var curMemberEmail = "";
 
 onAuthStateChanged(auth, (user) => {
   if (user != null) {
-    console.log("Logged in.", user.email);
     $("#name").html(`Welcome, ${user.displayName}!`);
     $("#visitor-options").css("display", "none");
     $("#member-options").css("display", "flex");
     memberSignedIn = true;
     curMemberEmail = user.email;
   } else {
-    console.log("Logged out.");
     $("#name").html(`Welcome, [member]!`);
     $("#member-options").css("display", "none");
     $("#visitor-options").css("display", "flex");
@@ -85,8 +83,10 @@ function showAllAccounts(querySnapshot) {
       $(".account-overview").append(`<div class="account" id="accountDetails">
       <h3>${doc.data().accountName}</h3>
       <h2>$${doc.data().accountBal}</h2>
-      <h4>${doc.data().accountNo}</h4>
-      <input type="hidden" value="${doc.data().accountNo}">
+      <h4>#${doc.data().accountNo}</h4>
+      <input type="hidden" id="acct-${doc.data().accountNo}" value="${
+        doc.data().accountNo
+      }">
   </div>`);
     });
   } else {
@@ -255,8 +255,12 @@ export async function changeRoute() {
       createUser();
       changePage("services");
       break;
+    case "services":
+      changePage("services");
+      break;
     case "logout":
       signout();
+      changePage("home");
       break;
     default:
       signout();
