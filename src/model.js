@@ -9,7 +9,16 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getFirestore, getDoc, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  getDoc,
+  collection,
+  getDocs,
+  addDoc,
+  where,
+  query,
+  doc,
+} from "firebase/firestore";
 
 import * as CONTROLLER from "./index";
 
@@ -19,29 +28,84 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 var memberSignedIn = false;
+var curMemberEmail = "";
 
 onAuthStateChanged(auth, (user) => {
   if (user != null) {
-    console.log("Logged in.");
+    console.log("Logged in.", user.email);
     $("#name").html(`Welcome, ${user.displayName}!`);
     $("#visitor-options").css("display", "none");
     $("#member-options").css("display", "flex");
     memberSignedIn = true;
+    curMemberEmail = user.email;
   } else {
     console.log("Logged out.");
     $("#name").html(`Welcome, [member]!`);
     $("#member-options").css("display", "none");
     $("#visitor-options").css("display", "flex");
     memberSignedIn = false;
+    curMemberEmail = "";
   }
 });
 
-async function getAllData() {
-  const querySnapshot = await getDocs(collection(db, "Pirates"));
+async function getMemberNumber() {
+  const q = query(
+    collection(db, "Members"),
+    where("memberEmail", "==", curMemberEmail)
+  );
 
-  querySnapshot.forEach((doc) => {
-    $("#data").append(`<p>${doc.data().firstName}</p>`);
-  });
+  const querySnapshot = await getDocs(q);
+  let curMemberNo = 0;
+  if (querySnapshot.docs.length > 0) {
+    querySnapshot.forEach((doc) => {
+      curMemberNo = doc.data().memberNo;
+    });
+  }
+
+  return curMemberNo;
+}
+
+async function getAllAccounts() {
+  let currentMember = await getMemberNumber();
+
+  const q = query(
+    collection(db, "Accounts"),
+    where("memberNo", "==", currentMember)
+  );
+
+  const querySnapshot = await getDocs(q);
+  showAllAccounts(querySnapshot);
+}
+
+function showAllAccounts(querySnapshot) {
+  if (querySnapshot.docs.length > 0) {
+    $(".account-overview").html("");
+
+    querySnapshot.forEach((doc) => {
+      $(".account-overview").append(`<div class="account" id="accountDetails">
+      <h3>${doc.data().accountName}</h3>
+      <h2>$${doc.data().accountBal}</h2>
+      <h4>${doc.data().accountNo}</h4>
+      <input type="hidden" value="${doc.data().accountNo}">
+  </div>`);
+    });
+  } else {
+    console.log("No data found");
+  }
+}
+
+function generateMemberNumber() {
+  var min = 100000; // Minimum value (inclusive) for a 6-digit number
+  var max = 999999; // Maximum value (inclusive) for a 6-digit number
+  var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  return randomNumber;
+}
+
+function generateAccountNumber() {
+  var min = 1000000;
+  var max = 9999999;
+  var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  return randomNumber;
 }
 
 function createUser() {
@@ -65,7 +129,9 @@ function createUser() {
 
     createUserWithEmailAndPassword(auth, email, pw)
       .then((userCredentials) => {
+        let memberNumber = generateMemberNumber();
         updateUserCredentials(fullName);
+        createNewMember(email, memberNumber);
         $("#name").html(`Welcome, ${fullName}!`);
         console.log("Created new user ", userCredentials.user);
         $("#fName").val("");
@@ -77,6 +143,35 @@ function createUser() {
       .catch((error) => {
         console.log("An error has occurred. ", error.message);
       });
+  }
+}
+
+async function createNewMember(email, memberNum) {
+  let member = {
+    memberEmail: email,
+    memberNo: memberNum,
+  };
+
+  try {
+    const docRef = await addDoc(collection(db, "Members"), member);
+
+    createNewBankAccount(memberNum);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function createNewBankAccount(memberNo) {
+  let account = {
+    accountNo: generateAccountNumber(),
+    accountBal: "5.00",
+    memberNo: memberNo,
+    accountName: "Savings",
+  };
+  try {
+    const docRef = await addDoc(collection(db, "Accounts"), account);
+  } catch (e) {
+    console.log(e);
   }
 }
 
@@ -122,7 +217,7 @@ function changePage(pageID) {
   });
 }
 
-export function changeRoute() {
+export async function changeRoute() {
   let hashTag = window.location.hash;
   let pageID = hashTag.replace("#", "");
   //   console.log(hashTag + ' ' + pageID);
@@ -134,6 +229,7 @@ export function changeRoute() {
       break;
     case "home":
       changePage("home");
+      signout();
       CONTROLLER.changeToMain();
       break;
     case "register":
@@ -143,6 +239,7 @@ export function changeRoute() {
     case "portal":
       if (memberSignedIn) {
         changePage("portal");
+        getAllAccounts();
         CONTROLLER.changeToAlt();
       } else {
         changePage("home");
@@ -152,10 +249,11 @@ export function changeRoute() {
       break;
     case "signInUser":
       signInByEmail();
-      changePage("portal");
+      changePage("services");
       break;
     case "createNewUser":
       createUser();
+      changePage("services");
       break;
     case "logout":
       signout();
