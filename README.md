@@ -12,7 +12,9 @@
 [X] Login page
 [X] Register page
 [X] Login/Register functions
-[] Member navigation structure/styling
+[X] Member navigation structure/styling
 [X] MVC functioning
+[] Member landing page
+[] Account information features
 
 [Color Palette](https://coolors.co/0e34a0-041f6b-b4c6f8-6a041d-fb5607)

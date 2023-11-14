@@ -18,17 +18,21 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+var memberSignedIn = false;
+
 onAuthStateChanged(auth, (user) => {
   if (user != null) {
     console.log("Logged in.");
     $("#name").html(`Welcome, ${user.displayName}!`);
     $("#visitor-options").css("display", "none");
     $("#member-options").css("display", "flex");
+    memberSignedIn = true;
   } else {
     console.log("Logged out.");
     $("#name").html(`Welcome, [member]!`);
     $("#member-options").css("display", "none");
     $("#visitor-options").css("display", "flex");
+    memberSignedIn = false;
   }
 });
 
@@ -136,8 +140,19 @@ export function changeRoute() {
       changePage("register");
       CONTROLLER.changeToAlt();
       break;
+    case "portal":
+      if (memberSignedIn) {
+        changePage("portal");
+        CONTROLLER.changeToAlt();
+      } else {
+        changePage("home");
+        signout();
+        CONTROLLER.changeToMain();
+      }
+      break;
     case "signInUser":
       signInByEmail();
+      changePage("portal");
       break;
     case "createNewUser":
       createUser();
