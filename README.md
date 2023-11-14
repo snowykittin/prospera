@@ -14,8 +14,15 @@
 [X] Login/Register functions
 [X] Member navigation structure/styling
 [X] MVC functioning
-[x] Member landing page
-[x] Pull all member account info
-[] Account detail page
+[X] Member landing page
+[X] Pull all member account info
+[X] Account detail page
+[] Services page
+[] Open new account functionality
+[] Transfer page
+[] Transfer functionality
+[] Deposit page
+[] Deposit functionality
+[] Mobile responsivity
 
 [Color Palette](https://coolors.co/0e34a0-041f6b-b4c6f8-6a041d-fb5607)

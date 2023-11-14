@@ -18,6 +18,7 @@ import {
   where,
   query,
   doc,
+  QuerySnapshot,
 } from "firebase/firestore";
 
 import * as CONTROLLER from "./index";
@@ -29,6 +30,7 @@ const db = getFirestore(app);
 
 var memberSignedIn = false;
 var curMemberEmail = "";
+var curAcctId = 0;
 
 onAuthStateChanged(auth, (user) => {
   if (user != null) {
@@ -43,6 +45,7 @@ onAuthStateChanged(auth, (user) => {
     $("#visitor-options").css("display", "flex");
     memberSignedIn = false;
     curMemberEmail = "";
+    curAcctId = 0;
   }
 });
 
@@ -75,19 +78,88 @@ async function getAllAccounts() {
   showAllAccounts(querySnapshot);
 }
 
+async function getAccountDetails() {
+  const q = query(
+    collection(db, "Accounts"),
+    where("accountNo", "==", curAcctId)
+  );
+
+  const querySnapshot = await getDocs(q);
+  showAccountDetails(querySnapshot);
+}
+
+function showAccountDetails(querySnapshot) {
+  if (querySnapshot.docs.length > 0) {
+    $(".acct-information").html("");
+
+    querySnapshot.forEach((doc) => {
+      $(".acct-information").html(`<h1>Account Summary</h1>
+      <h2 id="acct-name">Account Name: ${doc.data().accountName}</h2>
+      <h2 id="acct-ID">Account Number: ${doc.data().accountNo}</h2>
+
+      <div class="row">
+          <a href="#deposit"><button>Make a Deposit</button></a>
+          <a href="#transfer"><button>Make a Transfer</button></a>
+      </div>`);
+      $("#balance").html(`$${doc.data().accountBal}`);
+    });
+  } else {
+    console.log("No data found");
+  }
+}
+
 function showAllAccounts(querySnapshot) {
   if (querySnapshot.docs.length > 0) {
     $(".account-overview").html("");
 
     querySnapshot.forEach((doc) => {
-      $(".account-overview").append(`<div class="account" id="accountDetails">
+      $(".account-overview")
+        .append(`<a href="#details"><div class="account" id="${
+        doc.data().accountNo
+      }" onclick="viewAccountDetails(this.id)">
       <h3>${doc.data().accountName}</h3>
       <h2>$${doc.data().accountBal}</h2>
       <h4>#${doc.data().accountNo}</h4>
-      <input type="hidden" id="acct-${doc.data().accountNo}" value="${
-        doc.data().accountNo
-      }">
-  </div>`);
+  </div></a>`);
+    });
+  } else {
+    console.log("No data found");
+  }
+}
+
+window.viewAccountDetails = function (accountID) {
+  curAcctId = accountID;
+};
+
+async function getAccountTransactions() {
+  console.log(curAcctId);
+  const q = query(
+    collection(db, "Transactions"),
+    where("accountNo", "==", curAcctId)
+  );
+
+  const querySnapshot = await getDocs(q);
+  showTransactions(querySnapshot);
+}
+
+function showTransactions(querySnapshot) {
+  if (querySnapshot.docs.length > 0) {
+    $(".transactions-container").html("");
+
+    querySnapshot.forEach((doc) => {
+      let label = "";
+      if (!doc.data().isWithdrawal) {
+        label = "+";
+      } else {
+        label = "-";
+      }
+      $(".transactions-container").append(`
+      <div class="transaction">
+      <p class="date">${doc.data().transactionDate}</p>
+      <p class="description">${doc.data().description}</p>
+      <p class="amount">${label}$${doc.data().amount}</p>
+      </div>
+      `);
     });
   } else {
     console.log("No data found");
@@ -259,8 +331,15 @@ export async function changeRoute() {
       changePage("services");
       break;
     case "logout":
+      CONTROLLER.changeToMain();
       signout();
       changePage("home");
+      break;
+    case "details":
+      changePage("details");
+      getAccountDetails();
+      getAccountTransactions();
+      curAcctId = 0;
       break;
     default:
       signout();
