@@ -17,24 +17,18 @@ Prospera is a banking application that primarily uses Google's Firebase as its p
 • Account creation: New members can sign up for an account with Prospera, with only one user
 allowed per email address.
 
-• Profile control: Members will be able to update profile information such as first and last name, email address, and account password.
+• Profile control: Members will be able to update profile information such as first and last name, and email address.
 
 • Account views: Members will be able to view their current balances, as well as detailed
 information on all banking transactions
 
 • Transfers: Members will be able to transfer money from one account to another inside of their
-application, as well as to other members so long as they have the other member’s account and
-member ID.
+application, as well as to other members so long as they have the other member’s account number.
 
-• New savings accounts: Member accounts will come standard with one checking account and
-one savings account, with the option to open a maximum of two other savings accounts should
-they be needed to segment money.
+• New accounts: Member accounts will come standard with one savings account with the option to open unlimited additional accounts.
 
 • Close bank accounts: After an authentication method has been verified, members will be able
 to close their additional savings accounts.
-
-• Delete user account: Members will also be able to close their entire member account with
-Prospera after authentication.
 
 ## Resources
 
