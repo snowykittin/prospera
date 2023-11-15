@@ -96,6 +96,7 @@ function showAccountDetails(querySnapshot) {
       $(".acct-information").html(`<h1>Account Summary</h1>
       <h2 id="acct-name">Account Name: ${doc.data().accountName}</h2>
       <h2 id="acct-ID">Account Number: ${doc.data().accountNo}</h2>
+      <h2 id="member-ID">Member Number: ${doc.data().memberNo}</h2>
 
       <div class="row">
           <a href="#deposit"><button>Make a Deposit</button></a>
@@ -247,11 +248,58 @@ async function createNewBankAccount(memberNo) {
   }
 }
 
+async function openNewAccount() {
+  if (
+    $("#memberNo").val() === "" ||
+    $("#memberNo2").val() === "" ||
+    $("#accountName").val() === "" ||
+    $("#accountBal").val() === ""
+  ) {
+    $("#error-box").html(`<p>Please fill out all fields.</p>`);
+  } else if ($("#memberNo").val() != $("#memberNo2").val()) {
+    $("#error-box").html(`<p>Member number does not match.</p>`);
+  } else {
+    var fullDate = new Date();
+    //convert month to 2 digits
+    var twoDigitMonth =
+      fullDate.getMonth().length + 1 === 1
+        ? fullDate.getMonth() + 1
+        : "0" + (fullDate.getMonth() + 1);
+
+    var currentDate =
+      fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+    //19/05/2011
+    let account = {
+      accountNo: String(generateAccountNumber()),
+      accountBal: $("#accountBal").val(),
+      memberNo: Number($("#memberNo").val()),
+      accountName: $("#accountName").val(),
+    };
+
+    let initDeposit = {
+      accountNo: account.accountNo,
+      amount: account.accountBal,
+      description: "Initial deposit",
+      isWithdrawal: false,
+      longDescription: "Initial deposit upon opening account",
+      transactionDate: currentDate,
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, "Accounts"), account);
+      const docRef2 = await addDoc(collection(db, "Transactions"), initDeposit);
+
+      changePage("portal");
+      getAllAccounts();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
 function signout() {
   signOut(auth)
-    .then(() => {
-      console.log("Signing out user");
-    })
+    .then(() => {})
     .catch((error) => {
       console.log("error", error.message);
     });
@@ -262,11 +310,10 @@ function signInByEmail() {
   let pw = $("#password").val();
 
   signInWithEmailAndPassword(auth, email, pw)
-    .then((userCredentials) => {
-      console.log("Signed in as ", userCredentials.user);
-    })
+    .then((userCredentials) => {})
     .catch((error) => {
       console.log("An error has occurred. ", error.message);
+      changePage("home");
     });
 }
 
@@ -284,9 +331,12 @@ function updateUserCredentials(name) {
 
 function changePage(pageID) {
   $.get(`pages/${pageID}.html`, function (data) {
-    console.log("Changing page to", pageID);
     $("#app").html(data);
   });
+
+  if (pageID == "home") {
+    signout();
+  }
 }
 
 export async function changeRoute() {
@@ -340,6 +390,12 @@ export async function changeRoute() {
       getAccountDetails();
       getAccountTransactions();
       curAcctId = 0;
+      break;
+    case "open-account":
+      changePage("open-account");
+      break;
+    case "createAccount":
+      openNewAccount();
       break;
     default:
       signout();

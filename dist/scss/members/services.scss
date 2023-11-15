@@ -1,0 +1,43 @@
+.services{
+    width: 60%;
+    margin: 0 auto;
+
+    h1{
+        text-align: center;
+        margin-top: 5vh;
+        color: $dark-blue;
+    }
+
+    .grid{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .card{
+            width: 300px;
+            height: 100px;            
+            box-shadow: 5px 5px 5px rgba(11,7,85,0.3);
+            background-color: $blue;
+            border: 1px solid $slate-blue;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            h2{
+                margin-bottom: 0;
+                font-weight: normal;
+            }
+            
+        }
+    }
+}
