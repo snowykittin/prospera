@@ -77,3 +77,26 @@
         width: 30vw;
     }
 }
+
+
+@media screen and (max-width: 450px){
+    .update-details{
+        overflow: hidden;
+        .form{
+            width: 100%;
+            .error-box{
+                width: 90vw;
+            }
+            input, button, label, select{
+                width: 90vw;
+            }
+            .half-width{
+                width: 45vw;
+            }
+        }
+
+        img{
+            width: 80vw;
+        }
+    }
+}

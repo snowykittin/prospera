@@ -468,6 +468,9 @@ function editMemberDetails() {
   })
     .then(() => {
       alert("Your information has been updated.");
+
+      $("#name").html(`Welcome, ${auth.currentUser.displayName}!`);
+      curMemberEmail = auth.currentUser.email;
       changePage("services");
     })
     .catch((error) => {

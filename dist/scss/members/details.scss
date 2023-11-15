@@ -77,3 +77,26 @@
         }
     }
 }
+
+
+@media screen and (max-width: 760px){
+    .account-details{
+        flex-direction: column;
+
+        .acct-information{
+            width: 100vw;
+            min-height: 30vh;
+            padding-top: 2vh;
+        }
+        .transactions{
+            width: 100vw;
+
+            .transactions-container{
+                .transaction{
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}

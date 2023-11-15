@@ -80,3 +80,25 @@
         width: 30vw;
     }
 }
+
+@media screen and (max-width: 450px){
+    .log-in-register{
+        overflow: hidden;
+        .form{
+            width: 100%;
+            .error-box{
+                width: 90vw;
+            }
+            input, button, .row{
+                width: 90vw;
+            }
+            .half-width{
+                width: 45vw;
+            }
+        }
+
+        img{
+            width: 80vw;
+        }
+    }
+}

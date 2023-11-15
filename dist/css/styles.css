@@ -130,6 +130,40 @@ h1, h2, h3, h4, h5, h6, p {
   display: flex;
 }
 
+@media screen and (max-width: 450px) {
+  .main {
+    padding: 1vh 0vw;
+    justify-content: space-around;
+  }
+  .main .title {
+    height: fit-content;
+  }
+  .main .title img {
+    width: 200px;
+    height: auto;
+  }
+  .member-nav {
+    padding: 0vh 1vw;
+  }
+  .member-nav img {
+    width: 250px;
+    height: auto;
+  }
+  .member-nav .dropdown {
+    right: 0vw;
+    top: 3vh;
+  }
+  .member-nav .dropdown .dropdown-icon {
+    float: right;
+    height: 20px;
+    width: 20px;
+  }
+  .member-nav .dropdown .dropdown-icon i {
+    font-size: 20px;
+    color: #060633;
+    cursor: pointer;
+  }
+}
 #main-footer {
   min-height: 10vh;
   width: 100%;
@@ -175,6 +209,19 @@ h1, h2, h3, h4, h5, h6, p {
   height: 50px;
 }
 
+@media screen and (max-width: 768px) {
+  #main-footer {
+    flex-direction: column;
+  }
+  #main-footer .copy {
+    width: 80vw;
+  }
+  #main-footer .quick-nav {
+    text-align: left;
+    flex-direction: column;
+    width: 80vw;
+  }
+}
 .main-home {
   width: 100%;
 }
@@ -243,6 +290,36 @@ h1, h2, h3, h4, h5, h6, p {
   background-color: #f4f4f4;
 }
 
+@media screen and (max-width: 768px) {
+  .main-home .top-banner {
+    flex-direction: column;
+  }
+  .main-home .top-banner .text {
+    width: 80vw;
+  }
+  .main-home .top-banner .text .container {
+    width: inherit;
+  }
+  .main-home .top-banner .image {
+    width: 80vw;
+  }
+  .main-home .top-banner .image img {
+    width: inherit;
+  }
+  .main-home .perk-row {
+    flex-direction: column;
+  }
+  .main-home .perk-row .image-half {
+    width: 80vw;
+  }
+  .main-home .perk-row .image-half img {
+    width: inherit;
+    margin: 16px;
+  }
+  .main-home .perk-row .text-half {
+    width: 80vw;
+  }
+}
 .log-in-register {
   display: flex;
   align-items: center;
@@ -317,6 +394,26 @@ h1, h2, h3, h4, h5, h6, p {
   width: 30vw;
 }
 
+@media screen and (max-width: 450px) {
+  .log-in-register {
+    overflow: hidden;
+  }
+  .log-in-register .form {
+    width: 100%;
+  }
+  .log-in-register .form .error-box {
+    width: 90vw;
+  }
+  .log-in-register .form input, .log-in-register .form button, .log-in-register .form .row {
+    width: 90vw;
+  }
+  .log-in-register .form .half-width {
+    width: 45vw;
+  }
+  .log-in-register img {
+    width: 80vw;
+  }
+}
 .portal {
   display: flex;
   align-items: center;
@@ -404,7 +501,7 @@ h1, h2, h3, h4, h5, h6, p {
   border: 1px solid #6a86ce;
   border-radius: 15px;
   padding: 20px;
-  margin: 30px;
+  margin: 30px 0px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -489,6 +586,23 @@ h1, h2, h3, h4, h5, h6, p {
   background-color: #f4f4f4;
 }
 
+@media screen and (max-width: 760px) {
+  .account-details {
+    flex-direction: column;
+  }
+  .account-details .acct-information {
+    width: 100vw;
+    min-height: 30vh;
+    padding-top: 2vh;
+  }
+  .account-details .transactions {
+    width: 100vw;
+  }
+  .account-details .transactions .transactions-container .transaction {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
 .open-account {
   width: 100%;
   background-color: #dde7fe;
@@ -552,6 +666,26 @@ h1, h2, h3, h4, h5, h6, p {
   width: 30vw;
 }
 
+@media screen and (max-width: 450px) {
+  .update-details {
+    overflow: hidden;
+  }
+  .update-details .form {
+    width: 100%;
+  }
+  .update-details .form .error-box {
+    width: 90vw;
+  }
+  .update-details .form input, .update-details .form button, .update-details .form label, .update-details .form select {
+    width: 90vw;
+  }
+  .update-details .form .half-width {
+    width: 45vw;
+  }
+  .update-details img {
+    width: 80vw;
+  }
+}
 .deposit {
   width: 100%;
   background-color: #dde7fe;
@@ -622,6 +756,26 @@ h1, h2, h3, h4, h5, h6, p {
   width: 30vw;
 }
 
+@media screen and (max-width: 450px) {
+  .update-details {
+    overflow: hidden;
+  }
+  .update-details .form {
+    width: 100%;
+  }
+  .update-details .form .error-box {
+    width: 90vw;
+  }
+  .update-details .form input, .update-details .form button, .update-details .form label, .update-details .form select {
+    width: 90vw;
+  }
+  .update-details .form .half-width {
+    width: 45vw;
+  }
+  .update-details img {
+    width: 80vw;
+  }
+}
 .transfer {
   width: 100%;
   min-height: inherit;
@@ -692,6 +846,26 @@ h1, h2, h3, h4, h5, h6, p {
   width: 30vw;
 }
 
+@media screen and (max-width: 450px) {
+  .update-details {
+    overflow: hidden;
+  }
+  .update-details .form {
+    width: 100%;
+  }
+  .update-details .form .error-box {
+    width: 90vw;
+  }
+  .update-details .form input, .update-details .form button, .update-details .form label, .update-details .form select {
+    width: 90vw;
+  }
+  .update-details .form .half-width {
+    width: 45vw;
+  }
+  .update-details img {
+    width: 80vw;
+  }
+}
 .update-details {
   width: 100%;
   min-height: inherit;
@@ -762,6 +936,26 @@ h1, h2, h3, h4, h5, h6, p {
   width: 30vw;
 }
 
+@media screen and (max-width: 450px) {
+  .update-details {
+    overflow: hidden;
+  }
+  .update-details .form {
+    width: 100%;
+  }
+  .update-details .form .error-box {
+    width: 90vw;
+  }
+  .update-details .form input, .update-details .form button, .update-details .form label, .update-details .form select {
+    width: 90vw;
+  }
+  .update-details .form .half-width {
+    width: 45vw;
+  }
+  .update-details img {
+    width: 80vw;
+  }
+}
 .close-account {
   width: 100%;
   min-height: inherit;
@@ -834,6 +1028,27 @@ h1, h2, h3, h4, h5, h6, p {
   bottom: -10vh;
   left: 2vw;
   width: 30vw;
+}
+
+@media screen and (max-width: 450px) {
+  .update-details {
+    overflow: hidden;
+  }
+  .update-details .form {
+    width: 100%;
+  }
+  .update-details .form .error-box {
+    width: 90vw;
+  }
+  .update-details .form input, .update-details .form button, .update-details .form label, .update-details .form select, .update-details .form p {
+    width: 90vw;
+  }
+  .update-details .form .half-width {
+    width: 45vw;
+  }
+  .update-details img {
+    width: 80vw;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -72,3 +72,38 @@
         background-color: $light-grey;
     }
 }
+
+@media screen and (max-width: 768px){
+    .main-home{
+        .top-banner{
+            flex-direction: column;
+            .text{
+                width: 80vw;
+                .container{
+                    width: inherit;
+                }
+            }
+
+            .image{
+                width: 80vw;
+                img{
+                    width: inherit;
+                }
+            }
+        }
+
+        .perk-row{
+            flex-direction: column;
+            .image-half{
+                width: 80vw;
+                img{
+                    width: inherit;
+                    margin: 16px;
+                }
+            }
+            .text-half{
+                width: 80vw;
+            }
+        }
+    }
+}

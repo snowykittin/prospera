@@ -123,3 +123,42 @@
 .flex-visible{
     display: flex;
 }
+
+@media screen and (max-width: 450px){
+    .main{
+        padding: 1vh 0vw;
+        justify-content: space-around;
+        .title{
+            height:fit-content;
+            img{
+                width: 200px;
+                height:auto;
+            }
+        }
+    }
+
+    .member-nav{
+        padding: 0vh 1vw;
+
+        img{
+            width: 250px;
+            height: auto;
+        }
+        .dropdown{
+            right: 0vw;
+            top: 3vh;
+            .dropdown-icon{
+                float: right;
+                height: 20px;
+                width: 20px;
+    
+                i{
+                    font-size: 20px;
+                    color: $navy;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
