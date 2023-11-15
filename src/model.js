@@ -20,6 +20,7 @@ import {
   doc,
   QuerySnapshot,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 import * as CONTROLLER from "./index";
@@ -32,6 +33,7 @@ const db = getFirestore(app);
 var memberSignedIn = false;
 var curMemberEmail = "";
 var curAcctId = 0;
+var docID = "";
 
 onAuthStateChanged(auth, (user) => {
   if (user != null) {
@@ -174,6 +176,117 @@ async function makeAccountDeposit() {
   }
 }
 
+async function makeAccountTransfer() {
+  let accountID = $("#account-options").val();
+  let quickDesc = $("#quickDesc").val();
+  let longDesc = $("#longDesc").val();
+  let transferAmount = new Number($("#transferAmount").val());
+  let transferDestination = $("#transferDestination").val();
+  let oldSourceBalance,
+    newSourceBalance,
+    oldTransferBalance,
+    newTransferBalance;
+  let sourceAccountRef, transferAccountRef;
+
+  if (
+    accountID == "" ||
+    quickDesc == "" ||
+    longDesc == "" ||
+    transferAmount == "" ||
+    transferDestination == ""
+  ) {
+    $("#error-box").html(`<p>Please fill out all fields.</p>`);
+  } else {
+    // get first account
+    const q1 = query(
+      collection(db, "Accounts"),
+      where("accountNo", "==", accountID)
+    );
+    const querySnapshot = await getDocs(q1);
+    const q2 = query(
+      collection(db, "Accounts"),
+      where("accountNo", "==", transferDestination)
+    );
+    const secondSnapshot = await getDocs(q2);
+
+    if (querySnapshot.docs.length > 0 && secondSnapshot.docs.length > 0) {
+      querySnapshot.forEach((doc) => {
+        oldSourceBalance = new Number(doc.data().accountBal);
+
+        newSourceBalance = oldSourceBalance - transferAmount;
+        if (newSourceBalance < 0) {
+          $("#error-box").html("Insufficient funds.");
+          return;
+        }
+
+        sourceAccountRef = doc.id;
+      });
+
+      secondSnapshot.forEach((doc) => {
+        oldTransferBalance = new Number(doc.data().accountBal);
+
+        newTransferBalance = oldTransferBalance + transferAmount;
+
+        transferAccountRef = doc.id;
+      });
+      const sourceAcctRef = doc(db, "Accounts", sourceAccountRef);
+      await updateDoc(sourceAcctRef, {
+        accountBal: String(newSourceBalance.toFixed(2)),
+      });
+
+      const transferAcctRef = doc(db, "Accounts", transferAccountRef);
+      await updateDoc(transferAcctRef, {
+        accountBal: String(newTransferBalance.toFixed(2)),
+      });
+
+      var fullDate = new Date();
+      //convert month to 2 digits
+      var twoDigitMonth =
+        fullDate.getMonth().length + 1 === 1
+          ? fullDate.getMonth() + 1
+          : "0" + (fullDate.getMonth() + 1);
+
+      var currentDate =
+        fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+
+      let newWithdrawal = {
+        accountNo: accountID,
+        amount: String(transferAmount.toFixed(2)),
+        description: quickDesc,
+        isWithdrawal: true,
+        longDescription: longDesc,
+        transactionDate: currentDate,
+      };
+      let newDeposit = {
+        accountNo: transferDestination,
+        amount: String(transferAmount.toFixed(2)),
+        description: quickDesc,
+        isWithdrawal: false,
+        longDescription: longDesc,
+        transactionDate: currentDate,
+      };
+
+      try {
+        const docRef = await addDoc(
+          collection(db, "Transactions"),
+          newWithdrawal
+        );
+        const docRef2 = await addDoc(
+          collection(db, "Transactions"),
+          newDeposit
+        );
+        alert("Transfer successful");
+        changePage("services");
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      console.log("Error, no account found");
+      alert("Error: please try again.");
+    }
+  }
+}
+
 async function getAccountDetails() {
   const q = query(
     collection(db, "Accounts"),
@@ -196,12 +309,76 @@ function showAccountDetails(querySnapshot) {
 
       <div class="row">
           <a href="#deposit"><button>Make a Deposit</button></a>
-          <a href="#transfer"><button>Make a Transfer</button></a>
+          <a href="#transfers"><button>Make a Transfer</button></a>
+          <a href="#closeBankAccount"  onclick="viewAccountDetails(${
+            doc.data().accountNo
+          })"><button>Close this Account</button></a>
       </div>`);
       $("#balance").html(`$${doc.data().accountBal}`);
     });
   } else {
     console.log("No data found");
+  }
+}
+
+async function getAccountForDeletion() {
+  const q = query(
+    collection(db, "Accounts"),
+    where("accountNo", "==", String(curAcctId))
+  );
+
+  const querySnapshot = await getDocs(q);
+  showAccountForDeletion(querySnapshot);
+}
+
+function showAccountForDeletion(querySnapshot) {
+  if (querySnapshot.docs.length > 0) {
+    querySnapshot.forEach((doc) => {
+      $(".close-account").html(`<h1>Close Account</h1>
+      <h2>Account: ${doc.data().accountNo}</h2>
+
+      <div class="form">
+          <div id="error-box">
+          </div>
+
+          <label for="account">Selected account number:</label>
+          <input type="text" id="${doc.data().accountNo}" value="${
+        doc.data().accountNo
+      }" disabled>
+          <label for="account">Selected account name:</label>
+          <input type="text" id="${doc.data().accountName}" value="${
+        doc.data().accountName
+      }" disabled>
+
+          <label for="memberNo">Please enter your member number to close this account</label>
+          <input type="number" name="memberNo" id="memberNo" placeholder="Enter your member number...">
+          <input type="number" name="memberNo2" id="memberNo2" placeholder="Confirm member number...">
+
+          <p>By hitting the button below, you understand that this account will be permanently closed and any
+              remaining funds will become inaccessible.</p>
+          <a href="#confirmDeleteAccount"><button>Close this Account</button></a>
+      </div>`);
+      docID = doc.id;
+    });
+  } else {
+    console.log("No data found");
+  }
+}
+
+async function confirmDeleteAccount() {
+  if ($("#memberNo").val() === "" || $("#memberNo2").val() === "") {
+    $("#error-box").html(`<p>Please fill out all fields.</p>`);
+  } else if ($("#memberNo").val() != $("#memberNo2").val()) {
+    $("#error-box").html(`<p>Member number does not match.</p>`);
+  } else {
+    try {
+      await deleteDoc(doc(db, "Accounts", docID));
+      docID = "";
+      alert("Delete successful.");
+      changePage("services");
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
@@ -276,6 +453,28 @@ function generateAccountNumber() {
   return randomNumber;
 }
 
+async function showMemberDetails() {
+  let currentMember = await getMemberNumber();
+
+  $("#memberNumber").val(currentMember);
+  $("#fullName").val(auth.currentUser.displayName);
+  $("#email").val(auth.currentUser.email);
+}
+
+function editMemberDetails() {
+  updateProfile(auth.currentUser, {
+    displayName: $("#fullName").val(),
+    email: $("#email").val(),
+  })
+    .then(() => {
+      alert("Your information has been updated.");
+      changePage("services");
+    })
+    .catch((error) => {
+      console.log("An error has occurred. ", error.message);
+    });
+}
+
 function createUser() {
   //validate inputs
   if (
@@ -344,6 +543,8 @@ async function createNewBankAccount(memberNo) {
 }
 
 async function openNewAccount() {
+  let currentMember = await getMemberNumber();
+
   if (
     $("#memberNo").val() === "" ||
     $("#memberNo2").val() === "" ||
@@ -351,6 +552,11 @@ async function openNewAccount() {
     $("#accountBal").val() === ""
   ) {
     $("#error-box").html(`<p>Please fill out all fields.</p>`);
+  } else if (
+    currentMember != $("#memberNo").val() ||
+    currentMember != $("#memberNo2").val()
+  ) {
+    $("#error-box").html(`<p>Incorrect member number.</p>`);
   } else if ($("#memberNo").val() != $("#memberNo2").val()) {
     $("#error-box").html(`<p>Member number does not match.</p>`);
   } else {
@@ -498,6 +704,27 @@ export async function changeRoute() {
       break;
     case "makeDeposit":
       makeAccountDeposit();
+      break;
+    case "transfers":
+      changePage("transfers");
+      getAccountsForDeposit();
+      break;
+    case "makeTransfer":
+      makeAccountTransfer();
+      break;
+    case "closeBankAccount":
+      changePage("close-account");
+      getAccountForDeletion();
+      break;
+    case "confirmDeleteAccount":
+      confirmDeleteAccount();
+      break;
+    case "update-details":
+      changePage("update-details");
+      showMemberDetails();
+      break;
+    case "editMemberDetails":
+      editMemberDetails();
       break;
     default:
       signout();

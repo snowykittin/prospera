@@ -1,0 +1,36 @@
+<div class="portal">
+    <nav class="second-nav">
+        <a href="#portal">Accounts</a>
+        <a href="#services">Services</a>
+        <a href="#transfers">Transfers</a>
+    </nav>
+
+    <div class="transfer">
+        <h1>Make a Transfer</h1>
+        <div class="form">
+            <div id="error-box">
+            </div>
+
+            <label for="account">Select account:</label>
+            <select name="account" id="account-options">
+                <option value="accountID" id="accountID">account name</option>
+            </select>
+
+            <label for="transferAmount">Amount of transfer:</label>
+            <input type="number" step="0.01" name="transferAmount" id="transferAmount" placeholder="$0.00">
+
+            <label for="transferDestination">Destination account number:</label>
+            <input type="number" name="transferDestination" id="transferDestination" placeholder="Account number...">
+
+            <label for="quickDesc">Transfer memo:</label>
+            <input type="text" name="quickDesc" id="quickDesc" placeholder="Short Transfer memo...">
+
+            <label for="longDesc">Transfer description:</label>
+            <input type="text" name="longDesc" id="longDesc" placeholder="Long Transfer description...">
+
+            <a href="#makeTransfer"><button>Submit Transfer</button></a>
+        </div>
+
+        <img src="images/banners/login-banner.png" alt="Welcome back to Prospera">
+    </div>
+</div>
