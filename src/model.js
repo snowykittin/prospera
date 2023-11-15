@@ -290,7 +290,7 @@ async function makeAccountTransfer() {
 async function getAccountDetails() {
   const q = query(
     collection(db, "Accounts"),
-    where("accountNo", "==", curAcctId)
+    where("accountNo", "==", String(curAcctId))
   );
 
   const querySnapshot = await getDocs(q);
@@ -533,13 +533,32 @@ async function createNewMember(email, memberNum) {
 
 async function createNewBankAccount(memberNo) {
   let account = {
-    accountNo: generateAccountNumber(),
+    accountNo: String(generateAccountNumber()),
     accountBal: "5.00",
     memberNo: memberNo,
     accountName: "Savings",
   };
+  var fullDate = new Date();
+  //convert month to 2 digits
+  var twoDigitMonth =
+    fullDate.getMonth().length + 1 === 1
+      ? fullDate.getMonth() + 1
+      : "0" + (fullDate.getMonth() + 1);
+
+  var currentDate =
+    fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+  //19/05/2011
+  let initDeposit = {
+    accountNo: account.accountNo,
+    amount: "5.00",
+    description: "Initial deposit",
+    isWithdrawal: false,
+    longDescription: "Initial deposit upon opening account",
+    transactionDate: currentDate,
+  };
   try {
     const docRef = await addDoc(collection(db, "Accounts"), account);
+    const docRef2 = await addDoc(collection(db, "Transactions"), initDeposit);
   } catch (e) {
     console.log(e);
   }
