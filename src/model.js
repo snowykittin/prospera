@@ -19,6 +19,7 @@ import {
   query,
   doc,
   QuerySnapshot,
+  updateDoc,
 } from "firebase/firestore";
 
 import * as CONTROLLER from "./index";
@@ -78,6 +79,101 @@ async function getAllAccounts() {
   showAllAccounts(querySnapshot);
 }
 
+async function getAccountsForDeposit() {
+  let currentMember = await getMemberNumber();
+
+  const q = query(
+    collection(db, "Accounts"),
+    where("memberNo", "==", currentMember)
+  );
+
+  const querySnapshot = await getDocs(q);
+  showDepositOptions(querySnapshot);
+}
+
+function showDepositOptions(querySnapshot) {
+  if (querySnapshot.docs.length > 0) {
+    $("#account-options").html("");
+
+    querySnapshot.forEach((doc) => {
+      $("#account-options").append(
+        `<option value="${doc.data().accountNo}" id="${doc.data().accountNo}">${
+          doc.data().accountName
+        }</option>`
+      );
+    });
+  } else {
+    console.log("No data found");
+  }
+}
+
+async function makeAccountDeposit() {
+  let accountID = $("#account-options").val();
+  let quickDesc = $("#quickDesc").val();
+  let longDesc = $("#longDesc").val();
+  let depositAmount = new Number($("#depositAmount").val());
+  let oldBalance, newBalance;
+  let accountRef;
+
+  if (
+    accountID == "" ||
+    quickDesc == "" ||
+    longDesc == "" ||
+    depositAmount == ""
+  ) {
+    $("#error-box").html(`<p>Please fill out all fields.</p>`);
+  } else {
+    const q = query(
+      collection(db, "Accounts"),
+      where("accountNo", "==", accountID)
+    );
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.docs.length > 0) {
+      querySnapshot.forEach((doc) => {
+        oldBalance = new Number(doc.data().accountBal);
+
+        newBalance = oldBalance + depositAmount;
+
+        accountRef = doc.id;
+      });
+      const acctRef = doc(db, "Accounts", accountRef);
+      await updateDoc(acctRef, {
+        accountBal: String(newBalance.toFixed(2)),
+      });
+
+      var fullDate = new Date();
+      //convert month to 2 digits
+      var twoDigitMonth =
+        fullDate.getMonth().length + 1 === 1
+          ? fullDate.getMonth() + 1
+          : "0" + (fullDate.getMonth() + 1);
+
+      var currentDate =
+        fullDate.getDate() + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+
+      let newDeposit = {
+        accountNo: accountID,
+        amount: String(depositAmount.toFixed(2)),
+        description: quickDesc,
+        isWithdrawal: false,
+        longDescription: longDesc,
+        transactionDate: currentDate,
+      };
+
+      try {
+        const docRef = await addDoc(collection(db, "Transactions"), newDeposit);
+        alert("Deposit successful");
+        changePage("services");
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      console.log("Error, no account found");
+    }
+  }
+}
+
 async function getAccountDetails() {
   const q = query(
     collection(db, "Accounts"),
@@ -133,7 +229,6 @@ window.viewAccountDetails = function (accountID) {
 };
 
 async function getAccountTransactions() {
-  console.log(curAcctId);
   const q = query(
     collection(db, "Transactions"),
     where("accountNo", "==", curAcctId)
@@ -396,6 +491,13 @@ export async function changeRoute() {
       break;
     case "createAccount":
       openNewAccount();
+      break;
+    case "deposit":
+      changePage("deposit");
+      getAccountsForDeposit();
+      break;
+    case "makeDeposit":
+      makeAccountDeposit();
       break;
     default:
       signout();

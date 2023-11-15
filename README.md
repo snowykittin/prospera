@@ -21,8 +21,8 @@
 [X] Open new account functionality
 [] Transfer page
 [] Transfer functionality
-[] Deposit page
-[] Deposit functionality
+[X] Deposit page
+[X] Deposit functionality
 [] Update profile functionality
 [] Mobile responsivity
 

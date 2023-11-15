@@ -1,0 +1,33 @@
+<div class="portal">
+    <nav class="second-nav">
+        <a href="#portal">Accounts</a>
+        <a href="#services">Services</a>
+        <a href="#transfers">Transfers</a>
+    </nav>
+
+    <div class="deposit">
+        <h1>Make a Deposit</h1>
+        <div class="form">
+            <div id="error-box">
+            </div>
+
+            <label for="account">Select account:</label>
+            <select name="account" id="account-options">
+                <option value="accountID" id="accountID">account name</option>
+            </select>
+
+            <label for="depositAmount">Amount of deposit:</label>
+            <input type="number" step="0.01" name="depositAmount" id="depositAmount" placeholder="$0.00">
+
+            <label for="quickDesc">Deposit memo:</label>
+            <input type="text" name="quickDesc" id="quickDesc" placeholder="Short deposit memo...">
+
+            <label for="longDesc">Deposit description:</label>
+            <input type="text" name="longDesc" id="longDesc" placeholder="Long deposit description...">
+
+            <a href="#makeDeposit"><button>Submit Deposit</button></a>
+        </div>
+
+        <img src="images/banners/login-banner.png" alt="Welcome back to Prospera">
+    </div>
+</div>
