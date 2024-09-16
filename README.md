@@ -1,9 +1,5 @@
 # Prospera
 
-## Summer Sexton - NEWM-N 423
-
-[Link to Web4](https://in-info-web4.informatics.iupui.edu/~sarsexto/N423/prospera/)
-
 ## Abstract
 
 In today’s fast-paced and digital-centric world, having access to your finances and money in the digital space has become more important than ever. Part of that digital evolution has seen many institutions developing digital solutions for their banking applications, but unfortunately, this has been done with varying degrees of success. As a personal example, my own banking institution recently released not only an entirely new mobile banking application, but a whole new rebranding of their credit union. Unfortunately, this release did not go smoothly as it probably should have, with my parents ending up the victims of banking fraud due to security issues in their application that were encountered upon the new application’s rollout.
